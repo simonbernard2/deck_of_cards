@@ -2,3 +2,4 @@
 
 require "sorbet-runtime"
 require_relative "deck_of_cards/version"
+require_relative "deck_of_cards/card"
