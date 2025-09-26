@@ -1,0 +1,29 @@
+# Bundler / Ruby
+/.bundle/
+/vendor/bundle
+/.yardoc
+/_yardoc/
+/coverage/
+/pkg/
+/tmp/
+/log/
+/.ruby-version
+/.ruby-gemset
+
+# Gem artifacts
+*.gem
+
+# Sorbet
+/sorbet/rbi/
+/sorbet/rbi-hidden/
+/sorbet/rbi/todo.rbi
+/sorbet/rails-rbi/
+/sorbet/tapioca/
+/sorbet/config
+
+# Editors & OS
+*.swp
+*.swo
+*.DS_Store
+.idea/
+.vscode/
