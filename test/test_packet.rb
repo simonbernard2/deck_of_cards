@@ -53,7 +53,7 @@ class PacketTest < Minitest::Test
     assert_equal first_card, last_card
   end
 
-  def test_creates_the_mnemonica_stack # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  def test_manually_create_the_mnemonica_stack # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     clubs = @full_deck.cards.select { |card| card.suit == "C" }
     hearts = @full_deck.cards.select { |card| card.suit == "H" }
     spades = @full_deck.cards.select { |card| card.suit == "S" }
@@ -79,7 +79,6 @@ class PacketTest < Minitest::Test
 
     # cut the 9D to the bottom
     deck.cut_and_complete(number: 9)
-    deck.set_cards_positions
 
     first_card = T.must(deck.cards.first)
     assert_equal "C", first_card.suit
@@ -116,6 +115,13 @@ class PacketTest < Minitest::Test
     assert_equal 52, packet.size
     assert_equal "4 of C", packet.cards.first.to_s
     assert_equal "9 of D", packet.cards.last.to_s
+  end
+
+  def test_build_from_text_file_assigns_positions_to_cards
+    file_path = "data/mnemonica.txt"
+    packet = Packet.build_from_text_file(file_path:)
+
+    assert_equal (1..52).to_a, packet.cards.map(&:position)
   end
 
   def test_build_from_text_file_raise_error_on_duplicate_cards
