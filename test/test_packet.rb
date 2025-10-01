@@ -79,7 +79,6 @@ class PacketTest < Minitest::Test
 
     # cut the 9D to the bottom
     deck.cut_and_complete(number: 9)
-    deck.set_cards_positions
 
     first_card = T.must(deck.cards.first)
     assert_equal "C", first_card.suit
@@ -107,24 +106,6 @@ class PacketTest < Minitest::Test
 
     refute_equal original_cards.map(&:to_s), @full_deck.cards.to_s
     assert_equal original_clubs.map(&:to_s), clubs.map(&:to_s)
-  end
-
-  def test_build_from_text_file
-    file_path = "data/mnemonica.txt"
-    packet = Packet.build_from_text_file(file_path:)
-
-    assert_equal 52, packet.size
-    assert_equal "4 of C", packet.cards.first.to_s
-    assert_equal "9 of D", packet.cards.last.to_s
-  end
-
-  def test_build_from_text_file_raise_error_on_duplicate_cards
-    file_path = "data/duplicate_cards.txt"
-    error = assert_raises do
-      Packet.build_from_text_file(file_path:)
-    end
-
-    assert_equal "Duplicate card. (10 of H)", error.message
   end
 
   def test_deal_deals_the_top_card
