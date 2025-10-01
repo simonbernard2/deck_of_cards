@@ -10,6 +10,9 @@ GEM
     ast (2.4.3)
     benchmark (0.4.1)
     date (3.4.1)
+    debug (1.11.0)
+      irb (~> 1.10)
+      reline (>= 0.3.8)
     erb (5.0.2)
     erubi (1.13.1)
     io-console (0.8.1)
@@ -106,6 +109,7 @@ PLATFORMS
   universal-darwin
 
 DEPENDENCIES
+  debug
   deck_of_cards!
   irb
   minitest (~> 5.16)
