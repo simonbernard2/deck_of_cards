@@ -48,6 +48,33 @@ class Packet
     end
   end
 
+  sig { returns(Card) }
+  def deal
+    raise StandardError if size.zero?
+
+    T.must(cards.slice!(0))
+  end
+
+  sig { returns(Card) }
+  def bottom_deal
+    raise StandardError if size.zero?
+
+    T.must(cards.pop)
+  end
+
+  sig { params(number_of_piles: Integer, number_of_cards: Integer).returns(T::Array[Packet]) }
+  def deal_into_piles(number_of_piles:, number_of_cards:)
+    raise StandardError, "Not enough cards" if (number_of_cards * number_of_piles) > size
+    raise StandardError, "Invalid number_of_cards" unless number_of_cards.positive?
+
+    piles = Array.new(number_of_piles) { [] }
+    number_of_cards.times do
+      piles.each { |pile| pile << deal }
+    end
+
+    piles.map { Packet.new(cards: _1) }
+  end
+
   sig { params(number: Integer).returns(Packet) }
   def cut(number:)
     raise ArgumentError if invalid_number_to_cut_to?(number)
