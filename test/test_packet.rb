@@ -127,6 +127,38 @@ class PacketTest < Minitest::Test
     assert_equal "Duplicate card. (10 of H)", error.message
   end
 
+  def test_deal_deals_the_top_card
+    card = @full_deck.deal
+
+    assert_equal "A of C", card.to_s
+    assert_equal 51, @full_deck.size
+  end
+
+  def test_bottom_deal_deals_the_bottom_card
+    card = @full_deck.bottom_deal
+
+    assert_equal "K of D", card.to_s
+    assert_equal 51, @full_deck.size
+  end
+
+  def test_deal_into_piles_deals_into_x_number_of_piles
+    piles = @full_deck.deal_into_piles(number_of_piles: 4, number_of_cards: 5)
+
+    assert_equal 4, piles.size
+    assert(piles.all? { _1.size == 5 })
+    assert_equal 32, @full_deck.size
+  end
+
+  def test_deal_into_piles_deals_into_x_number_of_piles_raises_on_invalid_numbers
+    assert_raises do
+      @full_deck.deal_into_piles(number_of_piles: 4, number_of_cards: -5)
+    end
+
+    assert_raises do
+      @full_deck.deal_into_piles(number_of_piles: -4, number_of_cards: 5)
+    end
+  end
+
   private
 
   def create_full_deck
