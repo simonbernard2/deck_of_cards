@@ -109,6 +109,24 @@ class PacketTest < Minitest::Test
     assert_equal original_clubs.map(&:to_s), clubs.map(&:to_s)
   end
 
+  def test_build_from_text_file
+    file_path = "data/mnemonica.txt"
+    packet = Packet.build_from_text_file(file_path:)
+
+    assert_equal 52, packet.size
+    assert_equal "4 of C", packet.cards.first.to_s
+    assert_equal "9 of D", packet.cards.last.to_s
+  end
+
+  def test_build_from_text_file_raise_error_on_duplicate_cards
+    file_path = "data/duplicate_cards.txt"
+    error = assert_raises do
+      Packet.build_from_text_file(file_path:)
+    end
+
+    assert_equal "Duplicate card. (10 of H)", error.message
+  end
+
   private
 
   def create_full_deck

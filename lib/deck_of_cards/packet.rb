@@ -20,6 +20,34 @@ class Packet
     cards.size
   end
 
+  class << self
+    extend T::Sig
+
+    sig { params(file_path: String).returns(Packet) }
+    def build_from_text_file(file_path:) # rubocop:disable Metrics
+      file_content = File.read(file_path)
+      cards = []
+      cards_set = Set.new
+
+      file_content.each_line do |line|
+        value, suit = line.chomp.split(":")
+        raise StandardError unless value && suit
+
+        card = Card.new(suit:, value:)
+        card_string = card.to_s
+        raise StandardError, "Duplicate card. (#{card_string})" if cards_set.include?(card_string)
+
+        cards_set << card_string
+        cards << card
+      end
+
+      packet = Packet.new(cards:)
+      packet.set_cards_positions
+
+      packet
+    end
+  end
+
   sig { params(number: Integer).returns(Packet) }
   def cut(number:)
     raise ArgumentError if invalid_number_to_cut_to?(number)
