@@ -96,6 +96,19 @@ class PacketTest < Minitest::Test
     end
   end
 
+  def test_riffle_shuffle_shuffles_the_deck # rubocop:disable Metrics/AbcSize
+    original_cards = @full_deck.cards.dup
+    original_clubs = @full_deck.cards.select { |card| card.suit == "C" }.dup
+
+    left_half = @full_deck.cut(number: 26)
+    @full_deck.riffle_shuffle(other_packet: left_half)
+
+    clubs = @full_deck.cards.select { |card| card.suit == "C" }
+
+    refute_equal original_cards.map(&:to_s), @full_deck.cards.to_s
+    assert_equal original_clubs.map(&:to_s), clubs.map(&:to_s)
+  end
+
   private
 
   def create_full_deck

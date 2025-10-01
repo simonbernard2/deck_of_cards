@@ -53,6 +53,19 @@ class Packet
     self.cards = [zipped_cards, remaining_cards].flatten.compact
   end
 
+  sig { params(other_packet: Packet).void }
+  def riffle_shuffle(other_packet:) # rubocop:disable Metrics/AbcSize
+    shuffled_cards = []
+    until cards.empty? && other_packet.cards.empty?
+      if !cards.empty? && (other_packet.cards.empty? || rand < 0.5)
+        shuffled_cards.concat(cards.shift(rand(1..3)))
+      else
+        shuffled_cards.concat(other_packet.cards.shift(rand(1..3)))
+      end
+    end
+    self.cards = shuffled_cards
+  end
+
   sig { returns(Packet) }
   def shuffle
     self.cards = cards.shuffle
