@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 # This represents a packet of cards
-class Packet
+class Packet # rubocop:disable Metrics/ClassLength
   extend T::Sig
 
   sig { returns(T::Array[Card]) }
@@ -42,9 +42,18 @@ class Packet
       end
 
       packet = Packet.new(cards:)
-      packet.set_cards_positions
+      set_cards_positions(packet:)
 
       packet
+    end
+
+    private
+
+    sig { params(packet: Packet).void }
+    def set_cards_positions(packet:)
+      packet.cards.each_with_index do |card, index|
+        card.position = index + 1
+      end
     end
   end
 
@@ -136,13 +145,6 @@ class Packet
   sig { returns(T::Array[String]) }
   def to_s
     cards.map(&:to_s)
-  end
-
-  sig { void }
-  def set_cards_positions
-    cards.each_with_index do |card, index|
-      card.position = index + 1
-    end
   end
 
   private
