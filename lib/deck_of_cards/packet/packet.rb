@@ -6,7 +6,9 @@ class Packet
   extend T::Sig
   require "deck_of_cards/packet/shuffles"
   require "deck_of_cards/packet/deals"
+  require "deck_of_cards/packet/cuts"
   include Deals
+  include Cuts
 
   sig { returns(T::Array[Card]) }
   attr_accessor :cards
@@ -60,27 +62,6 @@ class Packet
     end
   end
 
-  sig { params(number: Integer).returns(Packet) }
-  def cut(number:)
-    raise ArgumentError if invalid_number_to_cut_to?(number)
-    return self if number >= size
-
-    cut_cards = cards.slice!(0...number)
-    Packet.new(cards: T.must(cut_cards))
-  end
-
-  sig { params(number: Integer).void }
-  def cut_and_complete(number:)
-    top_half = cut(number:)
-    self.cards = [cards, top_half.cards].flatten
-  end
-
-  sig { params(number: Integer).returns(Packet) }
-  def cut_and_complete!(number:)
-    cut_and_complete(number:)
-    self
-  end
-
   sig { params(other_packet: Packet).void }
   def faro(other_packet:)
     self.cards = Shuffles.faro_shuffle(top_half: self, bottom_half: other_packet)
@@ -91,31 +72,18 @@ class Packet
     self.cards = Shuffles.riffle_shuffle(left_half: self, right_half: other_packet)
   end
 
-  sig { returns(Packet) }
+  sig { void }
   def shuffle
     self.cards = cards.shuffle
-    self
   end
 
-  sig { returns(Packet) }
+  sig { void }
   def reverse
     self.cards = cards.reverse
-    self
   end
 
   sig { returns(T::Array[String]) }
   def to_s
     cards.map(&:to_s)
-  end
-
-  private
-
-  sig { params(number: Integer).returns(T::Boolean) }
-  def invalid_number_to_cut_to?(number)
-    return true if number.negative?
-    return true if number.zero?
-    return true if number >= cards.size
-
-    false
   end
 end

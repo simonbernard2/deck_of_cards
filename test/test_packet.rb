@@ -33,6 +33,13 @@ class PacketTest < Minitest::Test # rubocop:disable Metrics/ClassLength
     assert_equal 26, deck.size
   end
 
+  def test_cut_and_complete_returns_the_cutted_deck
+    deck = mnemonica_deck
+    deck.cut_and_complete(number: 26)
+    new_top_card = T.must(deck.cards.first)
+    assert_equal 27, new_top_card.position
+  end
+
   def test_faro_two_packets_of_cards # rubocop:disable Metrics/AbcSize
     deck = create_full_deck
 
@@ -183,5 +190,11 @@ class PacketTest < Minitest::Test # rubocop:disable Metrics/ClassLength
       end
     end
     Packet.new(cards:)
+  end
+
+  sig { returns(Packet) }
+  def mnemonica_deck
+    file_path = "data/mnemonica.txt"
+    Packet.build_from_text_file(file_path:)
   end
 end
