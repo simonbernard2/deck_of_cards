@@ -137,9 +137,9 @@ class PacketTest < Minitest::Test # rubocop:disable Metrics/ClassLength
     assert_equal "Duplicate card. (10 of H)", error.message
   end
 
-  def test_deal_deals_the_top_card
+  def test_top_deal_deals_the_top_card
     deck = create_full_deck
-    card = deck.deal
+    card = deck.top_deal
 
     assert_equal "A of C", card.to_s
     assert_equal 51, deck.size
