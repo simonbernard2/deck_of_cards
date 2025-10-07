@@ -154,6 +154,14 @@ class PacketTest < Minitest::Test # rubocop:disable Metrics/ClassLength
     assert_equal 51, deck.size
   end
 
+  def test_second_deal_deals_the_second_card
+    deck = create_full_deck
+    card = deck.second_deal
+
+    assert_equal "2 of C", card.to_s
+    assert_equal 51, deck.size
+  end
+
   def test_deal_into_piles_deals_into_x_number_of_piles
     deck = create_full_deck
     piles = deck.deal_into_piles(number_of_piles: 4, number_of_cards: 5)

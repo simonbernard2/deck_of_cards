@@ -35,4 +35,19 @@ class TestCard < Minitest::Test
   def test_values
     assert_equal %w[A 2 3 4 5 6 7 8 9 10 J Q K], Card.values
   end
+
+  def test_equality
+    first_card = Card.new(suit: "H", value: "10")
+    second_card = Card.new(suit: "H", value: "10")
+
+    assert_equal first_card, second_card
+  end
+
+  def test_comparison
+    unsorted_values = %w[K A 9 10 Q J]
+    cards = unsorted_values.map { Card.new(suit: "H", value: _1) }
+
+    expected = %w[9 10 J Q K A]
+    assert_equal expected, cards.sort.map(&:value)
+  end
 end
