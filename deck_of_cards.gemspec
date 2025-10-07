@@ -3,7 +3,7 @@
 require_relative "lib/deck_of_cards/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "deck_of_cards"
+  spec.name = "deck_of_cards_handler"
   spec.version = DeckOfCards::VERSION
   spec.authors = ["Simon Bernard"]
   spec.email = ["simonbernard@gmail.com"]
@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
     It provides all the moves one could do with a deck of cards.
     Such as shuffling, cutting, dealing, culling, etc.
   DESC
-  spec.homepage = "https://rubygems.org/gems/deck_of_cards"
+  spec.homepage = "https://rubygems.org/gems/deck_of_cards_handler"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.1.0"
 
