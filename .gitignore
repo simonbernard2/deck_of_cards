@@ -10,9 +10,6 @@
 /.ruby-version
 /.ruby-gemset
 
-# Gem artifacts
-*.gem
-
 # Editors & OS
 *.swp
 *.swo
