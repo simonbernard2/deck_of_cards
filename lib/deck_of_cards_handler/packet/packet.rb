@@ -52,6 +52,30 @@ class Packet
       packet
     end
 
+    sig { params(string: String).returns(Packet) }
+    def build_from_string(string:) # rubocop:disable Metrics
+      content = string.split(",")
+      cards = []
+      cards_set = Set.new
+
+      content.each do |line|
+        value, suit = line.chomp.split(":")
+        raise StandardError unless value && suit
+
+        card = Card.new(suit:, value:)
+        card_string = card.to_s
+        raise StandardError, "Duplicate card. (#{card_string})" if cards_set.include?(card_string)
+
+        cards_set << card_string
+        cards << card
+      end
+
+      packet = Packet.new(cards:)
+      set_cards_positions(packet:)
+
+      packet
+    end
+
     private
 
     sig { params(packet: Packet).void }

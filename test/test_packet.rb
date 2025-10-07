@@ -138,6 +138,31 @@ class PacketTest < Minitest::Test # rubocop:disable Metrics/ClassLength
     assert_equal "Duplicate card. (10 of H)", error.message
   end
 
+  def test_build_from_string
+    string = "A:C,2:H,5:D"
+    packet = Packet.build_from_string(string:)
+
+    assert_equal 3, packet.size
+    assert_equal "A of C", packet.cards.first.to_s
+    assert_equal "5 of D", packet.cards.last.to_s
+  end
+
+  def test_build_from_string_assigns_positions_to_cards
+    string = "A:C,2:H,5:D"
+    packet = Packet.build_from_string(string:)
+
+    assert_equal (1..3).to_a, packet.cards.map(&:position)
+  end
+
+  def test_build_from_string_raise_error_on_duplicate_cards
+    string = "A:C,A:C"
+    error = assert_raises do
+      Packet.build_from_string(string:)
+    end
+
+    assert_equal "Duplicate card. (A of C)", error.message
+  end
+
   def test_top_deal_deals_the_top_card
     deck = create_full_deck
     card = deck.top_deal

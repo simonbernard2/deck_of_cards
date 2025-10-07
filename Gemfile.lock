@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    deck_of_cards_handler (0.1.0)
+    deck_of_cards_handler (0.1.2)
       sorbet-runtime (>= 0.6)
 
 GEM
