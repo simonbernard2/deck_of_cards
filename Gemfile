@@ -13,6 +13,6 @@ gem "minitest", "~> 5.16"
 gem "rubocop", "~> 1.21"
 
 gem "debug", group: :development
-gem "sorbet", group: :development
+gem "sorbet", ">= 0.6", group: :development
 gem "sorbet-runtime"
 gem "tapioca", ">= 0.17.7", require: false, group: %i[development test]

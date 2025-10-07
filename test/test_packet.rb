@@ -20,12 +20,6 @@ class PacketTest < Minitest::Test # rubocop:disable Metrics/ClassLength
     assert_equal 1, packet.size
   end
 
-  def test_instantiating_a_packet_gives_the_card_a_position
-    card = Card.new(suit: "H", value: "A")
-    packet = Packet.new(cards: [card])
-    assert 1, packet.cards.first
-  end
-
   def test_cut_cuts_a_packet_of_x_number_of_cards
     deck = create_full_deck
     packet = deck.cut(number: 26)

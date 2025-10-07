@@ -13,14 +13,6 @@
 # Gem artifacts
 *.gem
 
-# Sorbet
-/sorbet/rbi/
-/sorbet/rbi-hidden/
-/sorbet/rbi/todo.rbi
-/sorbet/rails-rbi/
-/sorbet/tapioca/
-/sorbet/config
-
 # Editors & OS
 *.swp
 *.swo
