@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "lib/deck_of_cards/version"
+require_relative "lib/deck_of_cards_handler/version"
 
 Gem::Specification.new do |spec|
   spec.name = "deck_of_cards_handler"
-  spec.version = DeckOfCards::VERSION
+  spec.version = DeckOfCardsHandler::VERSION
   spec.authors = ["Simon Bernard"]
   spec.email = ["simonbernard@gmail.com"]
 
@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "sorbet-runtime", "~> 0.6"
-  spec.add_development_dependency "sorbet", "~> 0.6"
-  spec.add_development_dependency "tapioca", "~> 0.17", ">= 0.17.7"
+  spec.add_dependency "sorbet-runtime", ">= 0.6"
+  spec.add_development_dependency "sorbet", ">= 0.6"
+  spec.add_development_dependency "tapioca", ">= 0.17.7"
 end

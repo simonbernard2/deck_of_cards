@@ -4,9 +4,9 @@
 # This represents a packet of cards
 class Packet
   extend T::Sig
-  require "deck_of_cards/packet/shuffles"
-  require "deck_of_cards/packet/deals"
-  require "deck_of_cards/packet/cuts"
+  require "deck_of_cards_handler/packet/shuffles"
+  require "deck_of_cards_handler/packet/deals"
+  require "deck_of_cards_handler/packet/cuts"
   include Deals
   include Cuts
 
