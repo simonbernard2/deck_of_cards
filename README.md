@@ -1,8 +1,7 @@
 # DeckOfCards
 
-TODO: Delete this and the text below, and describe your gem
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/deck_of_cards`. To experiment with that code, run `bin/console` for an interactive prompt.
+This is a gem that simulates the handling of a deck of cards.
+It provides all the moves one could do such as shuffling, cutting, dealing, culling, etc.
 
 ## Installation
 
@@ -32,7 +31,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/deck_of_cards.
+Bug reports and pull requests are welcome on GitHub at <https://github.com/simonbernard2/deck_of_cards>.
 
 ## License
 
