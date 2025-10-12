@@ -9,6 +9,7 @@
 /log/
 /.ruby-version
 /.ruby-gemset
+*.gem
 
 # Editors & OS
 *.swp
