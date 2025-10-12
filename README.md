@@ -1,38 +1,100 @@
-# DeckOfCards
+# deck_of_cards_handler
 
-This is a gem that simulates the handling of a deck of cards.
-It provides all the moves one could do such as shuffling, cutting, dealing, culling, etc.
+**deck_of_cards_handler** is a Ruby gem for parsing, validating,
+and manipulating playing-card packets and decks.
 
-## Installation
+It provides utilities to load, inspect, and compare cards
+from text files or strings, with built-in validation and Sorbet type checking.
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+---
 
-Install the gem and add to the application's Gemfile by executing:
+## 📦 Installation
 
-```bash
-bundle add deck_of_card_handler
-```
+Add to your Gemfile:
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+```ruby
+gem "deck_of_cards_handler"
 
-```bash
-gem install deck_of_card_handler
-```
+Then install:
 
-## Usage
+bundle install
+# or
+gem install deck_of_cards_handler
 
-TODO: Write usage instructions here
 
-## Development
+⸻
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+🃏 Usage
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+require "deck_of_cards_handler"
 
-## Contributing
+# Build a packet from a string
+packet = DeckOfCardsHandler::Packet.build_from_string("AS, KD, 7C, 10H")
 
-Bug reports and pull requests are welcome on GitHub at <https://github.com/simonbernard2/deck_of_cards>.
+packet.size      # => 4
+packet.first     # => #<Card A♠>
+packet.last      # => #<Card 10♥>
+packet.each { |card| puts card }  # Prints A♠, K♦, 7♣, 10♥
 
-## License
+Load a packet from a file:
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+packet = DeckOfCardsHandler::Packet.build_from_text_file("data/mnemonica.txt")
+
+Validate input and handle errors:
+
+begin
+  DeckOfCardsHandler::Packet.build_from_string("AX, 2S")
+rescue DeckOfCardsHandler::InvalidCardError => e
+  puts e.message  # => "Invalid rank or suit at token: AX"
+end
+
+
+⸻
+
+⚙️ Features
+ • Parse and validate cards from strings or text files
+ • Detect duplicates and invalid formats
+ • Iterate and compare cards using Ruby’s Enumerable and Comparable
+ • Includes Sorbet type signatures for static safety
+ • Simple integration with text-based deck definitions (e.g., Mnemonica)
+
+⸻
+
+🧪 Development
+
+After checking out the repo, run:
+
+bin/setup
+
+This installs dependencies.
+
+Run the test suite:
+
+rake test
+
+You can also open an interactive console for experimentation:
+
+bin/console
+
+
+⸻
+
+🚀 Installation & Release
+
+To install this gem onto your local machine:
+
+bundle exec rake install
+
+⸻
+
+🤝 Contributing
+
+Bug reports and pull requests are welcome on GitHub:
+github.com/simonbernard2/deck_of_cards
+
+
+📜 License
+
+Released under the MIT License.
+See LICENSE.txt for details.
+
