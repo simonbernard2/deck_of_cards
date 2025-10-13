@@ -47,7 +47,7 @@ class Packet
       end
 
       packet = Packet.new(cards:)
-      set_cards_positions(packet:)
+      packet.set_cards_positions
 
       packet
     end
@@ -71,18 +71,9 @@ class Packet
       end
 
       packet = Packet.new(cards:)
-      set_cards_positions(packet:)
+      packet.set_cards_positions
 
       packet
-    end
-
-    private
-
-    sig { params(packet: Packet).void }
-    def set_cards_positions(packet:)
-      packet.cards.each_with_index do |card, index|
-        card.position = index + 1
-      end
     end
   end
 
@@ -104,6 +95,13 @@ class Packet
   sig { void }
   def reverse
     self.cards = cards.reverse
+  end
+
+  sig { void }
+  def set_cards_positions
+    cards.each_with_index do |card, index|
+      card.position = index + 1
+    end
   end
 
   sig { returns(T::Array[String]) }

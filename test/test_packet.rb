@@ -85,6 +85,8 @@ class PacketTest < Minitest::Test # rubocop:disable Metrics/ClassLength
     # cut the 9D to the bottom
     deck.cut_and_complete(number: 9)
 
+    deck.set_cards_positions
+
     first_card = T.must(deck.cards.first)
     assert_equal "C", first_card.suit
     assert_equal "4", first_card.value
@@ -92,6 +94,8 @@ class PacketTest < Minitest::Test # rubocop:disable Metrics/ClassLength
     last_card = T.must(deck.cards.last)
     assert_equal "D", last_card.suit
     assert_equal "9", last_card.value
+
+    assert_equal (1..52).to_a, deck.cards.map(&:position)
   end
 
   def test_cutting_a_negative_amout_of_cards_raises_an_error
