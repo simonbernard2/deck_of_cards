@@ -50,28 +50,20 @@ class Card
     other.suit == suit && other.value == value
   end
 
-  sig { returns(T::Array[Integer]) }
-  def rank
+  sig { params(low_ace: T::Boolean).returns(Integer) }
+  def rank(low_ace: false)
     case value
-    when "A" then [1, 14]
-    when "J" then [11]
-    when "Q" then [12]
-    when "K" then [13]
-    else [value.to_i]
+    when "A" then low_ace ? 1 : 14
+    when "J" then 11
+    when "Q" then 12
+    when "K" then 13
+    else value.to_i
     end
   end
 
   sig { params(other: Card).returns(Integer) }
   def <=>(other)
-    # compare by all possible ranks (Ace flexible)
-    my_ranks = rank
-    other_ranks = other.rank
-
-    # check if any ranks overlap (Ace == 1 or 14)
-    return 0 if (my_ranks & other_ranks).any?
-
-    # otherwise compare by highest possible
-    T.must(my_ranks.max) <=> T.must(other_ranks.max)
+    rank <=> other.rank
   end
 
   class << self
