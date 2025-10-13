@@ -68,6 +68,9 @@ gem install deck_of_cards_handler
   deck.shuffle
 
   hands = deck.deal_into_piles(number_of_piles: 5, number_of_cards: 5)
+
+  hands.map(&:to_s)
+  # => [["5 of D", "8 of C", "6 of S", "10 of D", "5 of C"], ["7 of C", "5 of S", "4 of C", "2 of D", "Q of D"], ["3 of S", "8 of D", "A of D", "2 of C", "7 of D"], ["Q of H", "4 of S", "3 of D", "J of S", "9 of S"], ["6 of C", "6 of H", "10 of C", "4 of D", "A of H"]]
 ```
 
 </details>
