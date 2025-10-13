@@ -1,100 +1,95 @@
-# deck_of_cards_handler
+# Deck of cards handler
 
-**deck_of_cards_handler** is a Ruby gem for parsing, validating,
-and manipulating playing-card packets and decks.
+A ruby gem for simulating real-world deck handling: shuffle, cut, deal, cull
+and more.
 
-It provides utilities to load, inspect, and compare cards
-from text files or strings, with built-in validation and Sorbet type checking.
+## Installation
 
----
+Run the following terminal command:
 
-## 📦 Installation
+```zsh
+gem install deck_of_cards_handler
+```
 
-Add to your Gemfile:
+## Usage examples
+
+<details>
+<summary>Create the Mnemonica stack from Stay Stack</summary>
 
 ```ruby
-gem "deck_of_cards_handler"
+  require "deck_of_cards_handler"
 
-Then install:
+  # create a deck in stay stack order
+  clubs = Card.values.map { Card.new(suit: "C", value: _1) }
+  hearts = Card.values.map { Card.new(suit: "H", value: _1) }
+  diamonds = Card.values.map { Card.new(suit: "D", value: _1) }
+  spades = Card.values.map { Card.new(suit: "S", value: _1) }
+  deck = Packet.new(cards: [clubs, hearts, diamonds.reverse, spades.reverse].flatten)
 
-bundle install
-# or
-gem install deck_of_cards_handler
+  # make 4 faro shuffles
+  4.times do
+    top_half = deck.cut(number: 26)
+    deck.faro(other_packet: top_half)
+  end
 
+  # reverse the first 26 cards
+  top_half = deck.cut(number: 26)
+  top_half.reverse
+  deck.cards = [top_half.cards, deck.cards].flatten
 
-⸻
+  # faro the 18 first cards
+  top_half = deck.cut(number: 18)
+  deck.faro(other_packet: top_half)
 
-🃏 Usage
+  # cut the 9D to the bottom
+  deck.cut_and_complete(number: 9)
+  # assign a position value to the cards
+  deck.set_cards_positions
 
-require "deck_of_cards_handler"
+```
 
-# Build a packet from a string
-packet = DeckOfCardsHandler::Packet.build_from_string("AS, KD, 7C, 10H")
+</details>
 
-packet.size      # => 4
-packet.first     # => #<Card A♠>
-packet.last      # => #<Card 10♥>
-packet.each { |card| puts card }  # Prints A♠, K♦, 7♣, 10♥
+<details>
+<summary>Distribute 5 hands of poker</summary>
 
-Load a packet from a file:
+```ruby
+  require "deck_of_cards_handler"
 
-packet = DeckOfCardsHandler::Packet.build_from_text_file("data/mnemonica.txt")
+  # create a full deck of cards
+  cards = []
+  Card.suits.each do |suit|
+    Card.values.each do |value|
+      cards << Card.new(suit:, value:)
+    end
+  end
+  deck = Packet.new(cards:)
 
-Validate input and handle errors:
+  deck.shuffle
 
-begin
-  DeckOfCardsHandler::Packet.build_from_string("AX, 2S")
-rescue DeckOfCardsHandler::InvalidCardError => e
-  puts e.message  # => "Invalid rank or suit at token: AX"
-end
+  hands = deck.deal_into_piles(number_of_piles: 5, number_of_cards: 5)
+```
 
+</details>
 
-⸻
-
-⚙️ Features
- • Parse and validate cards from strings or text files
- • Detect duplicates and invalid formats
- • Iterate and compare cards using Ruby’s Enumerable and Comparable
- • Includes Sorbet type signatures for static safety
- • Simple integration with text-based deck definitions (e.g., Mnemonica)
-
-⸻
-
-🧪 Development
+## Development
 
 After checking out the repo, run:
 
+```zsh
 bin/setup
+```
 
 This installs dependencies.
 
 Run the test suite:
 
+```zsh
 rake test
+```
 
 You can also open an interactive console for experimentation:
 
+```zsh
 bin/console
-
-
-⸻
-
-🚀 Installation & Release
-
-To install this gem onto your local machine:
-
-bundle exec rake install
-
-⸻
-
-🤝 Contributing
-
-Bug reports and pull requests are welcome on GitHub:
-github.com/simonbernard2/deck_of_cards
-
-
-📜 License
-
-Released under the MIT License.
-See LICENSE.txt for details.
-
+```
