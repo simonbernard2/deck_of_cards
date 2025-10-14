@@ -6,18 +6,19 @@ module PokerHands
     # sig { returns(T::Array[Card]) }
     # attr_reader :pair
 
-    sig { returns(Integer) }
-    attr_reader :rank
-
     sig { params(cards: T::Array[Card]).void }
     def initialize(cards:)
       super
-      @rank = T.let(2, Integer)
     end
 
-    sig { params(other: T.untyped).returns(T.nilable(Integer)) }
+    sig { override.returns(Integer) }
+    def rank
+      2
+    end
+
+    sig { override.params(other: T.untyped).returns(T.nilable(Integer)) }
     def <=>(other)
-      super
+      rank <=> other.rank
     end
 
     class << self

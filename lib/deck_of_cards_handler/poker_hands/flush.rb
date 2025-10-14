@@ -2,7 +2,7 @@
 # typed: strict
 
 module PokerHands
-  class TwoPairs < PokerHand
+  class Flush < PokerHand
     # sig { returns(T::Array[Card]) }
     # attr_reader :pair
 
@@ -13,7 +13,7 @@ module PokerHands
 
     sig { override.returns(Integer) }
     def rank
-      3
+      6
     end
 
     sig { override.params(other: T.untyped).returns(T.nilable(Integer)) }
@@ -24,8 +24,8 @@ module PokerHands
     class << self
       sig { params(cards: T::Array[Card]).returns(T::Boolean) }
       def is?(cards)
-        counts = cards.map(&:rank).flatten.tally
-        counts.values.count(2) == 2
+        suit = T.must(cards.first).suit
+        cards.all? { _1.suit == suit }
       end
     end
   end
