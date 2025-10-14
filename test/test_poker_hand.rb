@@ -5,6 +5,8 @@ require "test_helper"
 require "debug"
 
 class PokerHandTest < Minitest::Test
+  include PokerHands
+
   def test_assert_hands_has_a_pair
     string = "2:H, 3:S, K:D, 5:H, 9:S"
     hand = PokerHand.build_from_string(string:)
