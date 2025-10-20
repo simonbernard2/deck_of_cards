@@ -88,4 +88,16 @@ class PokerHandTest < Minitest::Test
 
     assert winning_hand > losing_hand
   end
+
+  def test_three_of_a_kind
+    winner = PokerHand.build_from_string(string: "3:H, 3:S, 3:D, 8:S, 9:S")
+    looser = PokerHand.build_from_string(string: "2:H, 2:S, 2:D, 8:S, 9:S")
+
+    assert winner > looser
+
+    winner = PokerHand.build_from_string(string: "3:H, 3:S, 3:D, 10:S, 9:S")
+    looser = PokerHand.build_from_string(string: "3:H, 3:S, 3:D, 8:S, 9:S")
+
+    assert winner > looser
+  end
 end
