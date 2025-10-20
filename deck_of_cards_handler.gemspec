@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.authors = ["Simon Bernard"]
   spec.email = ["simonbernard@gmail.com"]
 
-  spec.summary = "A gem that simulates the handling of a deck of cards"
+  spec.summary = "A gem that simulates the handling of a deck of playing cards"
   spec.description = <<-DESC
-    It provides all the moves one could do with a deck of cards.
+    It provides all the moves one could do with a deck of playing cards.
     Such as shuffling, cutting, dealing, culling, etc.
   DESC
   spec.homepage = "https://rubygems.org/gems/deck_of_cards_handler"
