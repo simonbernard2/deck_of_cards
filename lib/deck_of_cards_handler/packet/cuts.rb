@@ -21,7 +21,37 @@ module Cuts
     self.cards = [cards, top_half.cards].flatten
   end
 
+  sig { params(piles: T::Array[Packet]).void }
+  def reassemble_left_to_right_on_top(piles)
+    assembled = reassemble_cards(piles)
+    self.cards = assembled + cards
+  end
+
+  sig { params(piles: T::Array[Packet]).void }
+  def reassemble_left_to_right_on_bottom(piles)
+    assembled = reassemble_cards(piles)
+    self.cards += assembled
+  end
+
+  sig { params(piles: T::Array[Packet]).void }
+  def reassemble_right_to_left_on_top(piles)
+    assembled = reassemble_cards(piles, reverse: true)
+    self.cards = assembled + cards
+  end
+
+  sig { params(piles: T::Array[Packet]).void }
+  def reassemble_right_to_left_on_bottom(piles)
+    assembled = reassemble_cards(piles, reverse: true)
+    self.cards += assembled
+  end
+
   private
+
+  sig { params(piles: T::Array[Packet], reverse: T::Boolean).returns(T::Array[Card]) }
+  def reassemble_cards(piles, reverse: false)
+    piles.reverse! if reverse
+    piles.reduce([]) { |acc, pile| acc << pile.cards }.flatten
+  end
 
   sig { params(number: Integer).returns(T::Boolean) }
   def invalid_number_to_cut_to?(number)

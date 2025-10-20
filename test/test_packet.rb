@@ -7,12 +7,6 @@ require "debug"
 class PacketTest < Minitest::Test
   extend T::Sig
 
-  def test_a_packet_must_contain_at_least_one_card
-    assert_raises ArgumentError do
-      Packet.new(cards: [])
-    end
-  end
-
   def test_size_returns_the_number_of_cards_in_the_packet
     card = Card.new(suit: "H", value: "A")
     packet = Packet.new(cards: [card])
@@ -194,6 +188,57 @@ class PacketTest < Minitest::Test
     assert_raises do
       create_full_deck.deal_into_piles(number_of_piles: -4, number_of_cards: 5)
     end
+  end
+
+  def test_converts_to_poker_hand
+    deck = mnemonica_deck
+    hand = T.must(deck.deal_into_piles(number_of_piles: 1, number_of_cards: 5).first).to_poker_hand
+
+    assert hand.is_a?(PokerHands::OnePair)
+  end
+
+  def test_reassemble_left_to_right_on_top
+    deck = create_full_deck
+    piles = deck.deal_into_piles(number_of_piles: 5, number_of_cards: 1)
+    assert_equal 47, deck.size
+
+    deck.reassemble_left_to_right_on_top(piles)
+    expected_cards = %w[A 2 3 4 5].map { Card.new(suit: "C", value: _1) }
+    assert_equal 52, deck.size
+    assert_equal expected_cards, deck.cards.first(5)
+  end
+
+  def test_reassemble_left_to_right_on_bottom
+    deck = create_full_deck
+    piles = deck.deal_into_piles(number_of_piles: 5, number_of_cards: 1)
+    assert_equal 47, deck.size
+
+    deck.reassemble_left_to_right_on_bottom(piles)
+    expected_cards = %w[A 2 3 4 5].map { Card.new(suit: "C", value: _1) }
+    assert_equal 52, deck.size
+    assert_equal expected_cards, deck.cards.last(5)
+  end
+
+  def test_reassemble_right_to_left_on_top
+    deck = create_full_deck
+    piles = deck.deal_into_piles(number_of_piles: 5, number_of_cards: 1)
+    assert_equal 47, deck.size
+
+    deck.reassemble_right_to_left_on_top(piles)
+    expected_cards = %w[5 4 3 2 A].map { Card.new(suit: "C", value: _1) }
+    assert_equal 52, deck.size
+    assert_equal expected_cards, deck.cards.first(5)
+  end
+
+  def test_reassemble_right_to_left_on_bottom
+    deck = create_full_deck
+    piles = deck.deal_into_piles(number_of_piles: 5, number_of_cards: 1)
+    assert_equal 47, deck.size
+
+    deck.reassemble_right_to_left_on_bottom(piles)
+    expected_cards = %w[5 4 3 2 A].map { Card.new(suit: "C", value: _1) }
+    assert_equal 52, deck.size
+    assert_equal expected_cards, deck.cards.last(5)
   end
 
   private

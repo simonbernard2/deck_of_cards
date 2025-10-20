@@ -14,9 +14,7 @@ class Packet
   attr_accessor :cards
 
   sig { params(cards: T::Array[Card]).void }
-  def initialize(cards:)
-    raise ArgumentError if cards.empty?
-
+  def initialize(cards: [])
     @cards = T.let(cards, T::Array[Card])
   end
 
@@ -104,5 +102,24 @@ class Packet
   sig { returns(T::Array[String]) }
   def to_s
     cards.map(&:to_s)
+  end
+
+  sig do
+    returns(
+      T.any(
+        PokerHands::HighCard,
+        PokerHands::OnePair,
+        PokerHands::TwoPairs,
+        PokerHands::ThreeOfAKind,
+        PokerHands::Straight,
+        PokerHands::Flush,
+        PokerHands::FullHouse,
+        PokerHands::FourOfAKind,
+        PokerHands::StraightFlush
+      )
+    )
+  end
+  def to_poker_hand
+    PokerHands::PokerHand.create(cards:)
   end
 end
