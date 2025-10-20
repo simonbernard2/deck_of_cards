@@ -1,3 +1,5 @@
+[![Gem Version](https://badge.fury.io/rb/deck_of_cards_handler.svg)](https://badge.fury.io/rb/deck_of_cards_handler)
+
 # Deck of cards handler
 
 A ruby gem for simulating real-world deck handling: shuffle, cut, deal, cull
