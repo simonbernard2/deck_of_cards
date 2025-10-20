@@ -100,4 +100,16 @@ class PokerHandTest < Minitest::Test
 
     assert winner > looser
   end
+
+  def test_straight
+    winner = PokerHand.build_from_string(string: "2:D, 3:C, 4:S, 5:H, 6:S")
+    loser = PokerHand.build_from_string(string: "A:C, 2:D, 3:C, 4:S, 5:H")
+
+    assert winner > loser, "2 to 6 beats A to 5"
+
+    winner = PokerHand.build_from_string(string: "10:D, J:C, Q:S, K:H, A:S")
+    loser = PokerHand.build_from_string(string: "A:C, 2:D, 3:C, 4:S, 5:H")
+
+    assert winner > loser, "10 to A beats A to 5"
+  end
 end
