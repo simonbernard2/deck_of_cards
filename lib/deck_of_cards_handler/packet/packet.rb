@@ -29,7 +29,7 @@ class Packet
     extend T::Sig
 
     sig { params(file_path: String).returns(Packet) }
-    def build_from_text_file(file_path:) # rubocop:disable Metrics
+    def build_from_text_file(file_path:)
       file_content = File.read(file_path)
       cards = []
       cards_set = Set.new
@@ -53,7 +53,7 @@ class Packet
     end
 
     sig { overridable.params(string: String).returns(Packet) }
-    def build_from_string(string:) # rubocop:disable Metrics
+    def build_from_string(string:)
       content = string.split(",").map(&:strip)
       cards = []
       cards_set = Set.new

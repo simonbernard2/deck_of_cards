@@ -4,7 +4,7 @@
 require "test_helper"
 require "debug"
 
-class PacketTest < Minitest::Test # rubocop:disable Metrics/ClassLength
+class PacketTest < Minitest::Test
   extend T::Sig
 
   def test_a_packet_must_contain_at_least_one_card
@@ -34,7 +34,7 @@ class PacketTest < Minitest::Test # rubocop:disable Metrics/ClassLength
     assert_equal 27, new_top_card.position
   end
 
-  def test_faro_two_packets_of_cards # rubocop:disable Metrics/AbcSize
+  def test_faro_two_packets_of_cards
     deck = create_full_deck
 
     first_card = T.must(deck.cards[0])
@@ -58,7 +58,7 @@ class PacketTest < Minitest::Test # rubocop:disable Metrics/ClassLength
     assert_equal first_card, last_card
   end
 
-  def test_manually_create_the_mnemonica_stack # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  def test_manually_create_the_mnemonica_stack
     clubs = create_full_deck.cards.select { |card| card.suit == "C" }
     hearts = create_full_deck.cards.select { |card| card.suit == "H" }
     spades = create_full_deck.cards.select { |card| card.suit == "S" }
@@ -104,7 +104,7 @@ class PacketTest < Minitest::Test # rubocop:disable Metrics/ClassLength
     end
   end
 
-  def test_riffle_shuffle_shuffles_the_deck # rubocop:disable Metrics/AbcSize
+  def test_riffle_shuffle_shuffles_the_deck
     original_cards = create_full_deck.cards.dup
     original_clubs = create_full_deck.cards.select { |card| card.suit == "C" }.dup
 
