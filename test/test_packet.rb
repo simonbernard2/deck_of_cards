@@ -203,6 +203,50 @@ class PacketTest < Minitest::Test
     assert hand.is_a?(PokerHands::OnePair)
   end
 
+  def test_reassemble_left_to_right_on_top
+    deck = create_full_deck
+    piles = deck.deal_into_piles(number_of_piles: 5, number_of_cards: 1)
+    assert_equal 47, deck.size
+
+    deck.reassemble_left_to_right_on_top(piles)
+    expected_cards = %w[A 2 3 4 5].map { Card.new(suit: "C", value: _1) }
+    assert_equal 52, deck.size
+    assert_equal expected_cards, deck.cards.first(5)
+  end
+
+  def test_reassemble_left_to_right_on_bottom
+    deck = create_full_deck
+    piles = deck.deal_into_piles(number_of_piles: 5, number_of_cards: 1)
+    assert_equal 47, deck.size
+
+    deck.reassemble_left_to_right_on_bottom(piles)
+    expected_cards = %w[A 2 3 4 5].map { Card.new(suit: "C", value: _1) }
+    assert_equal 52, deck.size
+    assert_equal expected_cards, deck.cards.last(5)
+  end
+
+  def test_reassemble_right_to_left_on_top
+    deck = create_full_deck
+    piles = deck.deal_into_piles(number_of_piles: 5, number_of_cards: 1)
+    assert_equal 47, deck.size
+
+    deck.reassemble_right_to_left_on_top(piles)
+    expected_cards = %w[5 4 3 2 A].map { Card.new(suit: "C", value: _1) }
+    assert_equal 52, deck.size
+    assert_equal expected_cards, deck.cards.first(5)
+  end
+
+  def test_reassemble_right_to_left_on_bottom
+    deck = create_full_deck
+    piles = deck.deal_into_piles(number_of_piles: 5, number_of_cards: 1)
+    assert_equal 47, deck.size
+
+    deck.reassemble_right_to_left_on_bottom(piles)
+    expected_cards = %w[5 4 3 2 A].map { Card.new(suit: "C", value: _1) }
+    assert_equal 52, deck.size
+    assert_equal expected_cards, deck.cards.last(5)
+  end
+
   private
 
   sig { returns(Packet) }
