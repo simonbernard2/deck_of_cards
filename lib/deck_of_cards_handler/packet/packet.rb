@@ -70,10 +70,7 @@ class Packet
         cards << card
       end
 
-      packet = Packet.new(cards:)
-      packet.set_cards_positions
-
-      packet
+      Packet.new(cards:)
     end
   end
 

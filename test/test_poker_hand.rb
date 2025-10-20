@@ -55,4 +55,25 @@ class PokerHandTest < Minitest::Test
 
     assert pair > high_card
   end
+
+  def test_highcard_beats_high_card
+    weakest_hand = PokerHand.build_from_string(string: "2:H, 3:S, K:D, 5:H, 9:S")
+    strongest_hand = PokerHand.build_from_string(string: "2:H, 3:S, K:D, 5:H, A:S")
+
+    assert strongest_hand > weakest_hand
+  end
+
+  def test_highest_pair_beats_lowest_pair
+    low_pair = PokerHand.build_from_string(string: "2:H, 2:S, K:D, 5:H, 9:S")
+    high_pair = PokerHand.build_from_string(string: "A:H, A:S, K:D, 5:H, 9:S")
+
+    assert high_pair > low_pair
+  end
+
+  def test_equal_pair_wins_by_kicker
+    low_pair = PokerHand.build_from_string(string: "2:H, 2:S, K:D, 5:H, 9:S")
+    high_pair = PokerHand.build_from_string(string: "2:H, 2:S, K:D, 5:H, A:S")
+
+    assert high_pair > low_pair
+  end
 end
