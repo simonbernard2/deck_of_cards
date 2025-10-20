@@ -132,6 +132,13 @@ class PokerHandTest < Minitest::Test
     assert winner > loser
   end
 
+  def four_of_a_kind
+    winner = PokerHand.build_from_string(string: "3:C, 3:H, 3:S, 3:D, A:H")
+    loser = PokerHand.build_from_string(string: "2:C, 2:H, 2:S, 2:D, A:H")
+
+    assert winner > loser
+  end
+
   def test_straight_flush
     winner = PokerHand.build_from_string(string: "2:S, 3:S, 4:S, 5:S, 6:S")
     loser = PokerHand.build_from_string(string: "2:H, 3:H, 4:H, 5:H, A:H")
