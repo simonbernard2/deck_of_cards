@@ -76,4 +76,16 @@ class PokerHandTest < Minitest::Test
 
     assert high_pair > low_pair
   end
+
+  def test_two_pairs_beats_two_pairs
+    losing_hand = PokerHand.build_from_string(string: "2:H, 2:S, K:D, K:H, 9:S")
+    winning_hand = PokerHand.build_from_string(string: "A:H, A:S, K:D, K:H, 9:S")
+
+    assert winning_hand > losing_hand
+
+    losing_hand = PokerHand.build_from_string(string: "2:H, 2:S, K:D, K:H, 9:S")
+    winning_hand = PokerHand.build_from_string(string: "2:H, 2:S, K:D, K:H, 10:S")
+
+    assert winning_hand > losing_hand
+  end
 end
