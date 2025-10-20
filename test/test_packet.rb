@@ -205,6 +205,7 @@ class PacketTest < Minitest::Test
     deck.reassemble_left_to_right_on_top(piles)
     expected_cards = %w[A 2 3 4 5].map { Card.new(suit: "C", value: _1) }
     assert_equal 52, deck.size
+    assert_empty piles.map(&:cards).flatten
     assert_equal expected_cards, deck.cards.first(5)
   end
 
@@ -216,6 +217,7 @@ class PacketTest < Minitest::Test
     deck.reassemble_left_to_right_on_bottom(piles)
     expected_cards = %w[A 2 3 4 5].map { Card.new(suit: "C", value: _1) }
     assert_equal 52, deck.size
+    assert_empty piles.map(&:cards).flatten
     assert_equal expected_cards, deck.cards.last(5)
   end
 
@@ -227,6 +229,7 @@ class PacketTest < Minitest::Test
     deck.reassemble_right_to_left_on_top(piles)
     expected_cards = %w[5 4 3 2 A].map { Card.new(suit: "C", value: _1) }
     assert_equal 52, deck.size
+    assert_empty piles.map(&:cards).flatten
     assert_equal expected_cards, deck.cards.first(5)
   end
 
@@ -238,6 +241,7 @@ class PacketTest < Minitest::Test
     deck.reassemble_right_to_left_on_bottom(piles)
     expected_cards = %w[5 4 3 2 A].map { Card.new(suit: "C", value: _1) }
     assert_equal 52, deck.size
+    assert_empty piles.map(&:cards).flatten
     assert_equal expected_cards, deck.cards.last(5)
   end
 
