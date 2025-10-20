@@ -36,6 +36,26 @@ class TestCard < Minitest::Test
     assert_equal %w[A 2 3 4 5 6 7 8 9 10 J Q K], Card.values
   end
 
+  def test_odd?
+    card = Card.new(value: "3", suit: "H")
+    assert card.odd?
+  end
+
+  def test_even?
+    card = Card.new(value: "2", suit: "H")
+    assert card.even?
+  end
+
+  def test_spot?
+    card = Card.new(value: "2", suit: "H")
+    assert card.spot?
+  end
+
+  def test_court?
+    card = Card.new(value: "J", suit: "H")
+    assert card.court?
+  end
+
   def test_equality
     first_card = Card.new(suit: "H", value: "10")
     second_card = Card.new(suit: "H", value: "10")

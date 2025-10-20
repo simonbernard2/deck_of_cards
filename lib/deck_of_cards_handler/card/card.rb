@@ -40,6 +40,46 @@ class Card
     Card.black_suits.include?(suit)
   end
 
+  sig { returns(T::Boolean) }
+  def clubs?
+    suit == "C"
+  end
+
+  sig { returns(T::Boolean) }
+  def hearts?
+    suit == "H"
+  end
+
+  sig { returns(T::Boolean) }
+  def spades?
+    suit == "S"
+  end
+
+  sig { returns(T::Boolean) }
+  def diamonds?
+    suit == "D"
+  end
+
+  sig { returns(T::Boolean) }
+  def even?
+    Card.even_values.include?(value)
+  end
+
+  sig { returns(T::Boolean) }
+  def odd?
+    Card.odd_values.include?(value)
+  end
+
+  sig { returns(T::Boolean) }
+  def spot?
+    Card.spot_values.include?(value)
+  end
+
+  sig { returns(T::Boolean) }
+  def court?
+    Card.court_values.include?(value)
+  end
+
   sig { returns(String) }
   def to_s
     "#{value} of #{suit}"
@@ -86,6 +126,26 @@ class Card
     sig { returns(T::Array[String]) }
     def values
       %w[A 2 3 4 5 6 7 8 9 10 J Q K].freeze
+    end
+
+    sig { returns(T::Array[String]) }
+    def odd_values
+      %w[A 3 5 7 9 J K].freeze
+    end
+
+    sig { returns(T::Array[String]) }
+    def even_values
+      %w[2 4 6 8 10 Q].freeze
+    end
+
+    sig { returns(T::Array[String]) }
+    def court_values
+      %w[J Q K].freeze
+    end
+
+    sig { returns(T::Array[String]) }
+    def spot_values
+      %w[A 2 3 4 5 6 7 8 9 10].freeze
     end
   end
 end
