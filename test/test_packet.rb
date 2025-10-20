@@ -7,12 +7,6 @@ require "debug"
 class PacketTest < Minitest::Test
   extend T::Sig
 
-  def test_a_packet_must_contain_at_least_one_card
-    assert_raises ArgumentError do
-      Packet.new(cards: [])
-    end
-  end
-
   def test_size_returns_the_number_of_cards_in_the_packet
     card = Card.new(suit: "H", value: "A")
     packet = Packet.new(cards: [card])

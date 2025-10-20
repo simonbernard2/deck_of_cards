@@ -14,9 +14,7 @@ class Packet
   attr_accessor :cards
 
   sig { params(cards: T::Array[Card]).void }
-  def initialize(cards:)
-    raise ArgumentError if cards.empty?
-
+  def initialize(cards: [])
     @cards = T.let(cards, T::Array[Card])
   end
 
