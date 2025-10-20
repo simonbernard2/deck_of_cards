@@ -52,9 +52,9 @@ class Packet
       packet
     end
 
-    sig { params(string: String).returns(Packet) }
+    sig { overridable.params(string: String).returns(Packet) }
     def build_from_string(string:) # rubocop:disable Metrics
-      content = string.split(",")
+      content = string.split(",").map(&:strip)
       cards = []
       cards_set = Set.new
 
@@ -70,10 +70,7 @@ class Packet
         cards << card
       end
 
-      packet = Packet.new(cards:)
-      packet.set_cards_positions
-
-      packet
+      Packet.new(cards:)
     end
   end
 

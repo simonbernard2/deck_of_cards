@@ -126,13 +126,6 @@ class PacketTest < Minitest::Test # rubocop:disable Metrics/ClassLength
     assert_equal "9 of D", packet.cards.last.to_s
   end
 
-  def test_build_from_text_file_assigns_positions_to_cards
-    file_path = "data/mnemonica.txt"
-    packet = Packet.build_from_text_file(file_path:)
-
-    assert_equal (1..52).to_a, packet.cards.map(&:position)
-  end
-
   def test_build_from_text_file_raise_error_on_duplicate_cards
     file_path = "data/duplicate_cards.txt"
     error = assert_raises do
@@ -149,13 +142,6 @@ class PacketTest < Minitest::Test # rubocop:disable Metrics/ClassLength
     assert_equal 3, packet.size
     assert_equal "A of C", packet.cards.first.to_s
     assert_equal "5 of D", packet.cards.last.to_s
-  end
-
-  def test_build_from_string_assigns_positions_to_cards
-    string = "A:C,2:H,5:D"
-    packet = Packet.build_from_string(string:)
-
-    assert_equal (1..3).to_a, packet.cards.map(&:position)
   end
 
   def test_build_from_string_raise_error_on_duplicate_cards
