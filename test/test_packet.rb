@@ -196,6 +196,13 @@ class PacketTest < Minitest::Test
     end
   end
 
+  def test_converts_to_poker_hand
+    deck = mnemonica_deck
+    hand = T.must(deck.deal_into_piles(number_of_piles: 1, number_of_cards: 5).first).to_poker_hand
+
+    assert hand.is_a?(PokerHands::OnePair)
+  end
+
   private
 
   sig { returns(Packet) }

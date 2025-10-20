@@ -105,4 +105,23 @@ class Packet
   def to_s
     cards.map(&:to_s)
   end
+
+  sig do
+    returns(
+      T.any(
+        PokerHands::HighCard,
+        PokerHands::OnePair,
+        PokerHands::TwoPairs,
+        PokerHands::ThreeOfAKind,
+        PokerHands::Straight,
+        PokerHands::Flush,
+        PokerHands::FullHouse,
+        PokerHands::FourOfAKind,
+        PokerHands::StraightFlush
+      )
+    )
+  end
+  def to_poker_hand
+    PokerHands::PokerHand.create(cards:)
+  end
 end
