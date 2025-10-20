@@ -7,6 +7,7 @@ module PokerHands
     extend T::Sig
     extend T::Helpers
     include Comparable
+
     abstract!
 
     sig { returns(T::Array[Card]) }
@@ -29,6 +30,7 @@ module PokerHands
 
     class << self
       extend T::Sig
+
       sig { params(string: String).returns(PokerHand) }
       def build_from_string(string:)
         cards = Packet.build_from_string(string:).cards

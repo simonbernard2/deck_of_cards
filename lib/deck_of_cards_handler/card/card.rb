@@ -108,6 +108,7 @@ class Card
 
   class << self
     extend T::Sig
+
     sig { returns(T::Array[String]) }
     def suits
       %w[C H S D].freeze

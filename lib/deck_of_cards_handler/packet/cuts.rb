@@ -5,6 +5,7 @@
 module Cuts
   extend T::Helpers
   extend T::Sig
+
   requires_ancestor { Packet }
 
   sig { params(number: Integer).returns(Packet) }
@@ -50,14 +51,14 @@ module Cuts
   sig { params(piles: T::Array[Packet], reverse: T::Boolean).returns(T::Array[Card]) }
   def reassemble_cards(piles, reverse: false)
     piles.reverse! if reverse
-    piles.reduce([]) { |acc, pile| acc << pile.cards }.flatten
+    piles.reduce([]) { |acc, pile| acc << pile.cut(number: pile.size).cards }.flatten
   end
 
   sig { params(number: Integer).returns(T::Boolean) }
   def invalid_number_to_cut_to?(number)
     return true if number.negative?
     return true if number.zero?
-    return true if number >= cards.size
+    return true if number > cards.size
 
     false
   end

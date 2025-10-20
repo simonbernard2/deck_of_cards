@@ -4,6 +4,7 @@
 module Shuffles
   class << self
     extend T::Sig
+
     sig { params(left_half: Packet, right_half: Packet).returns(T::Array[Card]) }
     def riffle_shuffle(left_half:, right_half:)
       shuffled_cards = []
