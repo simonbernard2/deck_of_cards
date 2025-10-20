@@ -3,6 +3,13 @@
 
 module PokerHands
   class FullHouse < PokerHand
+    class << self
+      sig { params(cards: T::Array[Card]).returns(T::Boolean) }
+      def is?(cards)
+        PokerHands::ThreeOfAKind.is?(cards) && PokerHands::OnePair.is?(cards)
+      end
+    end
+
     sig { returns(T::Array[Card]) }
     attr_reader :three_of_a_kind
 
@@ -29,13 +36,6 @@ module PokerHands
       return comparison unless comparison.zero?
 
       pair_value <=> other.pair_value
-    end
-
-    class << self
-      sig { params(cards: T::Array[Card]).returns(T::Boolean) }
-      def is?(cards)
-        PokerHands::ThreeOfAKind.is?(cards) && PokerHands::OnePair.is?(cards)
-      end
     end
 
     protected

@@ -3,6 +3,14 @@
 
 module PokerHands
   class OnePair < PokerHand
+    class << self
+      sig { params(cards: T::Array[Card]).returns(T::Boolean) }
+      def is?(cards)
+        counts = cards.map(&:rank).flatten.tally
+        counts.values.count(2) == 1
+      end
+    end
+
     sig { returns(T::Array[Card]) }
     attr_reader :pair
 
@@ -29,14 +37,6 @@ module PokerHands
       return pair_comparison unless pair_comparison.zero?
 
       kickers_value <=> other.kickers_value
-    end
-
-    class << self
-      sig { params(cards: T::Array[Card]).returns(T::Boolean) }
-      def is?(cards)
-        counts = cards.map(&:rank).flatten.tally
-        counts.values.count(2) == 1
-      end
     end
 
     protected

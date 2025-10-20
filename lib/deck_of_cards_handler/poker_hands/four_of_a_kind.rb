@@ -3,8 +3,13 @@
 
 module PokerHands
   class FourOfAKind < PokerHand
-    # sig { returns(T::Array[Card]) }
-    # attr_reader :pair
+    class << self
+      sig { params(cards: T::Array[Card]).returns(T::Boolean) }
+      def is?(cards)
+        counts = cards.map(&:rank).flatten.tally
+        counts.values.count(4) == 1
+      end
+    end
 
     sig { params(cards: T::Array[Card]).void }
     def initialize(cards:)
@@ -19,14 +24,6 @@ module PokerHands
     sig { override.params(other: T.untyped).returns(T.nilable(Integer)) }
     def <=>(other)
       rank <=> other.rank
-    end
-
-    class << self
-      sig { params(cards: T::Array[Card]).returns(T::Boolean) }
-      def is?(cards)
-        counts = cards.map(&:rank).flatten.tally
-        counts.values.count(4) == 1
-      end
     end
   end
 end

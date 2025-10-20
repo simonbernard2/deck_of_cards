@@ -3,6 +3,17 @@
 
 module PokerHands
   class Straight < PokerHand
+    class << self
+      sig { params(cards: T::Array[Card]).returns(T::Boolean) }
+      def is?(cards)
+        ranks = cards.map(&:rank).sort
+        return true if ranks.each_cons(2).all? { |a, b| b == T.must(a) + 1 }
+
+        ranks = cards.map { _1.rank(low_ace: true) }.sort
+        ranks.each_cons(2).all? { |a, b| b == T.must(a) + 1 }
+      end
+    end
+
     sig { override.returns(Integer) }
     def rank
       5
@@ -16,17 +27,6 @@ module PokerHands
       c2 = other.cards.map { other.card_value(_1) }
 
       c1 <=> c2
-    end
-
-    class << self
-      sig { params(cards: T::Array[Card]).returns(T::Boolean) }
-      def is?(cards)
-        ranks = cards.map(&:rank).sort
-        return true if ranks.each_cons(2).all? { |a, b| b == T.must(a) + 1 }
-
-        ranks = cards.map { _1.rank(low_ace: true) }.sort
-        ranks.each_cons(2).all? { |a, b| b == T.must(a) + 1 }
-      end
     end
 
     protected

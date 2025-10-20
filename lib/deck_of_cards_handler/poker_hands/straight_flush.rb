@@ -3,6 +3,13 @@
 
 module PokerHands
   class StraightFlush < PokerHand
+    class << self
+      sig { params(cards: T::Array[Card]).returns(T::Boolean) }
+      def is?(cards)
+        Flush.is?(cards) && Straight.is?(cards)
+      end
+    end
+
     sig { override.returns(Integer) }
     def rank
       9
@@ -16,13 +23,6 @@ module PokerHands
       c2 = other.cards.map { other.card_value(_1) }
 
       c1 <=> c2
-    end
-
-    class << self
-      sig { params(cards: T::Array[Card]).returns(T::Boolean) }
-      def is?(cards)
-        Flush.is?(cards) && Straight.is?(cards)
-      end
     end
 
     protected

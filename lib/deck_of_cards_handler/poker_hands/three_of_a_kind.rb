@@ -3,6 +3,14 @@
 
 module PokerHands
   class ThreeOfAKind < PokerHand
+    class << self
+      sig { params(cards: T::Array[Card]).returns(T::Boolean) }
+      def is?(cards)
+        counts = cards.map(&:rank).flatten.tally
+        counts.values.count(3) == 1
+      end
+    end
+
     sig { returns(T::Array[Card]) }
     attr_reader :three_of_a_kind
 
@@ -29,14 +37,6 @@ module PokerHands
       return comparison unless comparison.zero?
 
       kickers_value <=> other.kickers_value
-    end
-
-    class << self
-      sig { params(cards: T::Array[Card]).returns(T::Boolean) }
-      def is?(cards)
-        counts = cards.map(&:rank).flatten.tally
-        counts.values.count(3) == 1
-      end
     end
 
     protected
