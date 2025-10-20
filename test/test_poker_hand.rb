@@ -119,4 +119,16 @@ class PokerHandTest < Minitest::Test
 
     assert_equal first_hand, second_hand
   end
+
+  def test_full_house
+    winner = PokerHand.build_from_string(string: "3:S, 3:H, 3:D, 2:H, 2:S")
+    loser = PokerHand.build_from_string(string: "2:S, 2:H, 2:D, 3:H, 3:S")
+
+    assert winner > loser
+
+    winner = PokerHand.build_from_string(string: "3:S, 3:H, 3:D, 4:H, 4:S")
+    loser = PokerHand.build_from_string(string: "3:S, 3:H, 3:D, 2:H, 2:S")
+
+    assert winner > loser
+  end
 end
