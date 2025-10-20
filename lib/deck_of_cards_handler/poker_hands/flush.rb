@@ -3,14 +3,6 @@
 
 module PokerHands
   class Flush < PokerHand
-    # sig { returns(T::Array[Card]) }
-    # attr_reader :pair
-
-    sig { params(cards: T::Array[Card]).void }
-    def initialize(cards:)
-      super
-    end
-
     sig { override.returns(Integer) }
     def rank
       6
@@ -18,7 +10,9 @@ module PokerHands
 
     sig { override.params(other: T.untyped).returns(T.nilable(Integer)) }
     def <=>(other)
-      rank <=> other.rank
+      return rank <=> other.rank unless instance_of?(other.class)
+
+      0
     end
 
     class << self

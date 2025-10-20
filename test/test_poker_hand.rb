@@ -112,4 +112,11 @@ class PokerHandTest < Minitest::Test
 
     assert winner > loser, "10 to A beats A to 5"
   end
+
+  def test_flush
+    first_hand = PokerHand.build_from_string(string: "2:H, 3:H, 8:H, 9:H, A:H")
+    second_hand = PokerHand.build_from_string(string: "2:D, 3:D, 8:D, 9:D, A:D")
+
+    assert_equal first_hand, second_hand
+  end
 end
