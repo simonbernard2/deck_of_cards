@@ -131,4 +131,16 @@ class PokerHandTest < Minitest::Test
 
     assert winner > loser
   end
+
+  def test_straight_flush
+    winner = PokerHand.build_from_string(string: "2:S, 3:S, 4:S, 5:S, 6:S")
+    loser = PokerHand.build_from_string(string: "2:H, 3:H, 4:H, 5:H, A:H")
+
+    assert winner > loser, "2 to 6 beats A to 5"
+
+    winner = PokerHand.build_from_string(string: "10:S, J:S, Q:S, K:S, A:S")
+    loser = PokerHand.build_from_string(string: "A:H, 2:H, 3:H, 4:H, 5:H")
+
+    assert winner > loser, "10 to A beats A to 5"
+  end
 end
