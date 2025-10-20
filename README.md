@@ -1,4 +1,4 @@
-[![Gem Version](https://badge.fury.io/rb/deck_of_cards_handler.svg)](https://badge.fury.io/rb/deck_of_cards_handler)
+[![Gem Version](https://badge.fury.io/rb/deck_of_cards_handler.svg)](https://badge.fury.io/rb/deck_of_cards_handler) [![Test suite](https://github.com/simonbernard2/deck_of_cards/actions/workflows/ruby.yml/badge.svg)](https://github.com/simonbernard2/deck_of_cards/actions/workflows/ruby.yml)
 
 # Deck of cards handler
 
