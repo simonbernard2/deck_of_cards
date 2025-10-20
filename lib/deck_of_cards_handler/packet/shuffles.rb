@@ -5,7 +5,7 @@ module Shuffles
   class << self
     extend T::Sig
     sig { params(left_half: Packet, right_half: Packet).returns(T::Array[Card]) }
-    def riffle_shuffle(left_half:, right_half:) # rubocop:disable Metrics/AbcSize
+    def riffle_shuffle(left_half:, right_half:)
       shuffled_cards = []
       until left_half.cards.empty? && right_half.cards.empty?
         if !left_half.cards.empty? && (right_half.cards.empty? || Kernel.rand < 0.5)

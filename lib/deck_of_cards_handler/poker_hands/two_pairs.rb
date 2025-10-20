@@ -22,7 +22,7 @@ module PokerHands
     end
 
     sig { override.params(other: T.untyped).returns(T.nilable(Integer)) }
-    def <=>(other) # rubocop:disable Metrics/AbcSize
+    def <=>(other)
       return rank <=> other.rank unless instance_of?(other.class)
 
       first_pair_comparison = pair_values.first <=> other.pair_values.first
