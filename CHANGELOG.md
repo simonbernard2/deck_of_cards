@@ -7,3 +7,8 @@
 ## [0.1.6] - 2025-10-20
 
 - Added poker hand comparison
+
+## [0.1.92] - 2025-10-21
+
+- Added overhand shuffle
+- Added cull method
