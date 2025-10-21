@@ -93,6 +93,16 @@ class Packet
     self.cards = cards.reverse
   end
 
+  # Moves a card from position A to position B
+  # The first card position IS 1, NOT 0 as in a traditional array
+  sig { params(from: Integer, to: Integer).void }
+  def cull(from:, to:)
+    raise ArgumentError, "`from` must be in range with 1..#{size}" if from <= 0 || from > size
+    raise ArgumentError, "`to` must be in range with 1..#{size}" if to <= 0 || to > size
+
+    cards.insert(to - 1, T.must(cards.delete_at(from - 1)))
+  end
+
   sig { void }
   def set_cards_positions
     cards.each_with_index do |card, index|

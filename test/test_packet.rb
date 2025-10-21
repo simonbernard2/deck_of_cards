@@ -245,6 +245,18 @@ class PacketTest < Minitest::Test
     assert_equal expected_cards, deck.cards.last(5)
   end
 
+  def test_cull
+    deck = mnemonica_deck
+    deck.cull(from: 1, to: 52)
+
+    expected_card = Card.new(suit: "C", value: "4")
+    assert_equal expected_card, deck.cards.last
+
+    assert_raises do
+      deck.cull(from: 53, to: 0)
+    end
+  end
+
   private
 
   sig { returns(Packet) }
