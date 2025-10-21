@@ -2,6 +2,24 @@
 # typed: strict
 
 module Shuffles
+  extend T::Helpers
+  extend T::Sig
+
+  requires_ancestor { Packet }
+
+  sig { void }
+  def overhand_shuffle
+    piles = []
+
+    until size.zero?
+      chunk_size = Kernel.rand(1..8)
+      chunk_size = size if chunk_size > size
+      piles << cut(number: chunk_size)
+    end
+
+    reassemble_right_to_left_on_top(piles)
+  end
+
   class << self
     extend T::Sig
 

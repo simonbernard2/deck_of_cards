@@ -10,6 +10,7 @@ class Packet
   require "deck_of_cards_handler/packet/cuts"
   include Deals
   include Cuts
+  include Shuffles
 
   sig { returns(T::Array[Card]) }
   attr_accessor :cards

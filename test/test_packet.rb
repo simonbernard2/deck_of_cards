@@ -257,6 +257,13 @@ class PacketTest < Minitest::Test
     end
   end
 
+  def test_overhand_shuffle
+    deck = mnemonica_deck
+    deck.overhand_shuffle
+
+    refute_equal mnemonica_deck.to_s, deck.to_s
+  end
+
   private
 
   sig { returns(Packet) }
